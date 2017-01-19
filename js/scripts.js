@@ -5,35 +5,90 @@ var translate = function(num) {
   var outputStr = "";
   for (var i = 0; i < num.length; i++){
     // always will start with the singles digits and works towards tens, hundreds, thousands
-    var temp = getRoman(parseInt(num[num.length-1-i]) * Math.pow(10,i));
+    console.log(parseInt(num[num.length-1-i]) + "    i:" + i);
+    var temp = getRoman(parseInt(num[num.length-1-i]), i);
     // concat by adding temp (higher place) to the left of the lower places
     outputStr = temp + outputStr;
   }
   return outputStr;
 }
+var addCheck = function(digit){
+  console.log(digit);
+  if(digit != 4 && digit !=9 && digit != 5){
+    console.log("true");
+    return true;
 
-var getRoman = function(input) {
-  switch (input) {
-    case 1:
-      return "I";
+  } else {
+    console.log("false");
+    return false;
+  }
+
+}
+
+var getRoman = function(input, place) {
+var numeral;
+var numAdded;
+var addTo = "";
+console.log("before switch");
+
+
+  switch (addCheck(input)) {
+    case true:
+      console.log("inside case");
+      if(place===0){
+        numeral = "I";
+      } else if(place===1){
+        numeral = "X"
+      } else if(place===2){
+        numeral = "C"
+      } else if(place===3){
+        numeral = "M"
+      }
+
+      numAdded = input;
+      if(input > 5){
+        numAdded = input - 5;
+        if(place = 0) {
+          addTo = "V";
+        } else if(place=1){
+          addTo="L";
+        } else if(place=2){
+          addTo="D"
+        }
+
+      }
+
+      var R = numeral;
+      numeral = addTo;
+      console.log("Numeral: " + numeral);
+      for(var i = 0; i < numAdded; i++){
+
+        numeral += R;
+      }
+      console.log("Numeral: " + numeral);
+
       break;
-    case 5:
-      return "V";
-      break;
-    case 10:
-      return "X";
-      break;
-    case 50:
-      return "L";
-      break;
-    case 100:
-      return "C";
-      break;
-    case 500:
-      return "D"
-      break;
-    case 1000:
-      return "M";
+
+    //   break;
+    // case (1 && place === 1):
+    //   numeral= "X";
+    //   break;
+    // case (1 && place === 2):
+    //   numeral= "C";
+    //   break;
+    // case (1 && place === 3):
+    //   numeral= "M";
+    //   break;
+
+// case False;
+    case false:
+      if(input === 5 && place === 0){
+        numeral= "V";
+      } else if (input === 5 && place === 1){
+        numeral= "L";
+      } else if (input === 5 && place === 2){
+        numeral= "D";
+      }
       break;
 
     default:
@@ -41,6 +96,7 @@ var getRoman = function(input) {
 
   }
 
+  return numeral;
 
 };
 
