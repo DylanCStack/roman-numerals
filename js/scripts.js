@@ -5,7 +5,6 @@ var translate = function(num) {
   var outputStr = "";
   for (var i = 0; i < num.length; i++){
     // always will start with the singles digits and works towards tens, hundreds, thousands
-    console.log(parseInt(num[num.length-1-i]) + "    i:" + i);
     var temp = getRoman(parseInt(num[num.length-1-i]), i);
     // concat by adding temp (higher place) to the left of the lower places
     outputStr = temp + outputStr;
@@ -13,28 +12,24 @@ var translate = function(num) {
   return outputStr;
 }
 var addCheck = function(digit){
-  console.log(digit);
   if(digit != 4 && digit !=9 && digit != 5){
-    console.log("true");
     return true;
 
   } else {
-    console.log("false");
     return false;
   }
 
 }
 
 var getRoman = function(input, place) {
-var numeral;
+  
+var numeral = "";
 var numAdded;
 var addTo = "";
-console.log("before switch");
 
 
   switch (addCheck(input)) {
     case true:
-      console.log("inside case");
       if(place===0){
         numeral = "I";
       } else if(place===1){
@@ -46,26 +41,27 @@ console.log("before switch");
       }
 
       numAdded = input;
+
       if(input > 5){
         numAdded = input - 5;
-        if(place = 0) {
+        if(place === 0) {
           addTo = "V";
-        } else if(place=1){
+        } else if(place===1){
+
           addTo="L";
-        } else if(place=2){
+        } else if(place===2){
           addTo="D"
         }
 
       }
 
+
       var R = numeral;
       numeral = addTo;
-      console.log("Numeral: " + numeral);
       for(var i = 0; i < numAdded; i++){
 
         numeral += R;
       }
-      console.log("Numeral: " + numeral);
 
       break;
 
