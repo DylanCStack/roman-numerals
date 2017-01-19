@@ -1,6 +1,26 @@
 var numerals = ["I","V","X","L","C","D","M"];
 
-var translate = function(num) {
+var rToD = function(numeral){
+  var dict = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000};
+  var sum = 0;
+
+  for(var x=0; x<numeral.length;x++){
+      console.log(dict[numeral[x]]);
+      console.log(dict[numeral[x+1]]);
+      if((dict[numeral[x]] >= dict[numeral[x+1]]) || numeral.length===1) {// will be addition
+        sum += dict[numeral[x]];
+      } else if (isNaN(dict[numeral[x+1]])===false){//will be subtraction
+        sum += dict[numeral[x+1]]-dict[numeral[x]];
+        x++;
+      }
+    }
+
+
+  return sum;
+
+}
+
+var dToR = function(num) {
   num.split("");
   var outputStr = "";
   for (var i = 0; i < num.length; i++){
@@ -94,7 +114,12 @@ $(function(){
     event.preventDefault();
     var input = $("#decimal").val();
 
-    var output = translate(input);
+    if (isNaN(input)){
+      var output = rToD(input.toUpperCase());
+    } else {
+      var output = dToR(input);
+    }
+
     $("#output").text(output);
   });
 
