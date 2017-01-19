@@ -12,7 +12,7 @@ var translate = function(num) {
   return outputStr;
 }
 var addCheck = function(digit){
-  if(digit != 4 && digit !=9 && digit != 5){
+  if(digit != 4 && digit !=9){
     return true;
 
   } else {
@@ -22,11 +22,11 @@ var addCheck = function(digit){
 }
 
 var getRoman = function(input, place) {
-  
+
 var numeral = "";
 var numAdded;
 var addTo = "";
-
+var subFrom = "";
 
   switch (addCheck(input)) {
     case true:
@@ -42,7 +42,7 @@ var addTo = "";
 
       numAdded = input;
 
-      if(input > 5){
+      if(input >= 5){
         numAdded = input - 5;
         if(place === 0) {
           addTo = "V";
@@ -52,38 +52,31 @@ var addTo = "";
         } else if(place===2){
           addTo="D"
         }
-
       }
-
-
       var R = numeral;
       numeral = addTo;
       for(var i = 0; i < numAdded; i++){
 
         numeral += R;
       }
-
       break;
 
-    //   break;
-    // case (1 && place === 1):
-    //   numeral= "X";
-    //   break;
-    // case (1 && place === 2):
-    //   numeral= "C";
-    //   break;
-    // case (1 && place === 3):
-    //   numeral= "M";
-    //   break;
-
-// case False;
     case false:
-      if(input === 5 && place === 0){
-        numeral= "V";
-      } else if (input === 5 && place === 1){
-        numeral= "L";
-      } else if (input === 5 && place === 2){
-        numeral= "D";
+
+      if (place === 0 && input != 9){
+        numeral += "IV";
+      } else if (place === 0){
+        numeral += "IX";
+      } else if (place === 1 && input != 9){
+        numeral += "XL";
+      } else if (place === 1){
+        numeral += "XC";
+      } else if (place === 2 && input != 9){
+        numeral += "CD";
+      } else if (place === 2){
+        numeral += "CM";
+      } else {
+        numeral = "number to big";
       }
       break;
 
@@ -96,13 +89,10 @@ var addTo = "";
 
 };
 
-
 $(function(){
   $("form").submit(function(event){
     event.preventDefault();
     var input = $("#decimal").val();
-
-
 
     var output = translate(input);
     $("#output").text(output);
